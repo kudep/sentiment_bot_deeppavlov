@@ -2,6 +2,7 @@ from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
+# * using is bad practices
 from script import *
 
 from config import API_TOKEN
@@ -20,5 +21,5 @@ async def echo_message(msg: types.Message):
     await bot.send_message(msg.from_user.id, out_response)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     executor.start_polling(dp)

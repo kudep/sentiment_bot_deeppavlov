@@ -9,19 +9,20 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import numpy as np
 
 
-MODEL = 'cardiffnlp/twitter-roberta-base-sentiment'
+MODEL = "cardiffnlp/twitter-roberta-base-sentiment"
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
 model = AutoModelForSequenceClassification.from_pretrained(MODEL)
 
 labels = {
-    0: 'negative',
-    1: 'neutral',
-    2: 'positive',
+    0: "negative",
+    1: "neutral",
+    2: "positive",
 }
 
 
-def define_sentiment(text: str, sentiment: Optional[str]=None):
+# needs more documented functions!
+def define_sentiment(text: str, sentiment: Optional[str] = None):
     input = tokenizer(text, return_tensors="pt")
     output = model(**input)
     scores = output[0][0].detach().numpy()
@@ -33,8 +34,8 @@ def define_sentiment(text: str, sentiment: Optional[str]=None):
     return labels[pred] == sentiment
 
 
-positive_sentiment = partial(define_sentiment, sentiment='positive')
-negative_sentiment = partial(define_sentiment, sentiment='negative')
+positive_sentiment = partial(define_sentiment, sentiment="positive")
+negative_sentiment = partial(define_sentiment, sentiment="negative")
 
 
 @validate_arguments
